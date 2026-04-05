@@ -13,6 +13,7 @@ fn input(msg:&str)->String{
 }
 
 fn main() {
+    println!("Default bases must be between 1 and 62.\nTo use a custom base, you must input all characters/digits of that base.\nTo force a custom base, input two underscores first (e.g., __12345).\n");
     loop {
         let mut a:String=input("Value: ").trim().to_string();
         let mut b:String=input("Input base: ").trim().to_string();
@@ -21,16 +22,18 @@ fn main() {
         if b.chars().all(|ch|ch.is_ascii_digit()){
             let recol:usize=b.parse::<usize>().unwrap();
             if recol>62{println!("~WAR~ Bases cannot exceed 62, unless it is a custom base.")}
-            else if recol<1{println!("~WAR~ Bases cannot stay below 1.")}
+            else if recol<1{println!("~WAR~ Bases cannot be below 1.")}
             else{b=base(recol)}
         };
+        if b.starts_with("__"){b=b[2..].to_string()};
 
         if c.chars().all(|ch|ch.is_ascii_digit()){
             let recol:usize=c.parse::<usize>().unwrap();
             if recol>62{println!("~WAR~ Bases cannot exceed 62, unless it is a custom base.")}
-            else if recol<1{println!("~WAR~ Bases cannot stay below 1.")}
+            else if recol<1{println!("~WAR~ Bases cannot be below 1.")}
             else{c=base(recol)}
         };
+        if c.starts_with("__"){c=c[2..].to_string()};
 
         println!("{}\n",convert(&mut a,&mut b,&mut c))
     }
